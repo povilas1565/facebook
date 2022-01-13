@@ -16,16 +16,14 @@ public class Video {
     private String name;
 
     @Lob
-    @Column (columnDefinition = "LONGBLOB")
+    @Column(columnDefinition = "LONGBLOB")
     private byte[] videoBytes;
 
     @JsonIgnore
     private Long userId;
 
-    @JsonIgnore
-    private Long postId;
 
-    @Column (nullable = false)
+    @Column(nullable = false)
     @JsonFormat(pattern = "yyyy-mm-dd нн:mm:ss")
     private LocalDateTime createDate;
 
@@ -34,4 +32,7 @@ public class Video {
         this.createDate = LocalDateTime.now();
     }
 }
+
+
+
 
