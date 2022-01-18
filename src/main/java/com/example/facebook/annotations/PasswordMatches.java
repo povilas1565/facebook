@@ -1,5 +1,7 @@
 package com.example.facebook.annotations;
 
+import com.example.facebook.validators.PasswordMatchesValidator;
+
 import javax.validation.Constraint;
 import javax.validation.Payload;
 import java.lang.annotation.*;
@@ -14,5 +16,5 @@ import java.lang.annotation.*;
         Class<?>[] groups() default {};
         Class<? extends Payload>[] payload() default{};
     }
-}
+
 
