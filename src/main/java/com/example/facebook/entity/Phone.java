@@ -16,8 +16,9 @@ public class Phone {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @OneToMany(cascade = CascadeType.REFRESH, fetch = FetchType.EAGER, mappedBy = "user", orphanRemoval = true)
-    private List<Message> messages = new ArrayList<>();
+    @ManyToOne(fetch = FetchType.LAZY)
+    private User user;
+
     @Column (nullable = false)
     private String username;
 
@@ -28,6 +29,10 @@ public class Phone {
     private String location;
 
     @Column (nullable = false)
+    private String title;
+
+
+    @Column (nullable = false)
     @JsonFormat(pattern = "yyyy-mm-dd нн:mm:ss")
     private LocalDateTime createDate;
 
@@ -36,6 +41,13 @@ public class Phone {
         this.createDate = LocalDateTime.now();
     }
 
+
+    public void getMessage(Object message) {
+
+    }
+    public Object getMessage() {
+        return null;
+    }
 }
 
 

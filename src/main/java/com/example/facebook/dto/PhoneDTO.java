@@ -5,17 +5,18 @@ import lombok.Data;
 import javax.validation.constraints.NotEmpty;
 
 @Data
-public class UserDTO {
+public class PhoneDTO {
     private Long id;
 
-    @NotEmpty
-    private String firstname;
-    @NotEmpty
-    private String lastname;
-    private String info;
+    private String title;
 
-    public void setUsername(String username) {
+    @NotEmpty
+    private String message;
+
+    @NotEmpty
+    private String username;
+
+    public void getLocation(String location){
+
     }
 }
-
-

@@ -2,16 +2,16 @@ package com.example.facebook.entity;
 import lombok.Data;
 import net.minidev.json.annotate.JsonIgnore;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.Id;
-import javax.persistence.Lob;
+import javax.persistence.*;
 
 @Data
 @Entity
 public class Image {
     @Id
     private Long id;
+
+    @ManyToOne(fetch = FetchType.EAGER)
+    private Post posts ;
 
     @Column(updatable = false)
     private String name;

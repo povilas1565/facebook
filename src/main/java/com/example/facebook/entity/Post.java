@@ -48,11 +48,6 @@ public class Post {
 
         this.createDate = LocalDateTime.now();
     }
-
-    public Post() {
-
-    }
-
 }
 
 

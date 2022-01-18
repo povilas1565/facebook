@@ -14,14 +14,18 @@ public class Message {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @ManyToOne(fetch = FetchType.EAGER)
-    private User user;
 
     @Column (nullable = false)
     private String username;
 
     @Column (nullable = false)
     private Long userId;
+
+    @ManyToOne(fetch = FetchType.LAZY)
+    private User user;
+
+    @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY, mappedBy = "user", orphanRemoval = true)
+    private List<Phone> phones = new ArrayList<>();
 
     @Column (columnDefinition = "text", nullable=false)
     private String message;

@@ -13,6 +13,6 @@ public interface MessageRepository extends JpaRepository<Message, Long> {
 
     Optional<Message> findByUserId(Long userId);
 
-    Optional<Message> findByPostId(Long postId);
+    Optional<Message> findByMessageId(Long postId);
 }
 
