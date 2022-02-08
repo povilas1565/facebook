@@ -27,8 +27,11 @@ public class Video {
     @JsonIgnore
     private Long userId;
 
+    @JsonIgnore
+    private Long postId;
+
     @ManyToOne(fetch = FetchType.EAGER)
-    private Comment comment;
+    private Post posts;
 
     @Column(nullable = false)
     @JsonFormat(pattern = "yyyy-mm-dd нн:mm:ss")

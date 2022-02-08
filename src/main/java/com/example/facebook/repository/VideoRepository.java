@@ -10,6 +10,6 @@ public interface VideoRepository extends JpaRepository<Video, Long> {
 
     Optional<Video> findByUserId(Long userId);
 
-    Optional<Video> findByVideoId(Long videoId);
+    Optional<Video> findByPostId(Long videoId);
 }
 

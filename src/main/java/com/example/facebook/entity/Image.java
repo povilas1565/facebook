@@ -11,7 +11,7 @@ public class Image {
     private Long id;
 
     @ManyToOne(fetch = FetchType.EAGER)
-    private Post posts ;
+    private Post posts;
 
     @Column(updatable = false)
     private String name;
