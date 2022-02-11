@@ -28,17 +28,17 @@ public class UserService {
         this.bCryptPasswordEncoder = bCryptPasswordEncoder;
     }
 
-    private com.example.facebook.entity.User getUserByPrincipal(Principal principal) {
+    private User getUserByPrincipal(Principal principal) {
         String username = principal.getName();
         return userRepository.findUserByUsername(username)
                 .orElseThrow(() -> new UsernameNotFoundException("User not found with username " + username));
     }
 
-    public com.example.facebook.entity.User getCurrentUser(Principal principal) {
+    public User getCurrentUser(Principal principal) {
         return getUserByPrincipal(principal);
     }
 
-    public com.example.facebook.entity.User getUserById(Long userId) {
+    public User getUserById(Long userId) {
         return userRepository.findUserById(userId).orElseThrow(()-> new UsernameNotFoundException("User not found"));
     }
     public User updateUser(UserDTO userDTO, Principal principal) {

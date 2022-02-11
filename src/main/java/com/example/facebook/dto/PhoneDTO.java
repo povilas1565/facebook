@@ -10,11 +10,13 @@ public class PhoneDTO {
 
     private String title;
 
+    private String location;
+
+    private String username;
+
     @NotEmpty
     private String message;
 
-    @NotEmpty
-    private String username;
 
     public void getLocation(String location){
 

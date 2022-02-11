@@ -1,5 +1,6 @@
 package com.example.facebook.repository;
 
+import com.example.facebook.entity.Message;
 import com.example.facebook.entity.Phone;
 import com.example.facebook.entity.User;
 import com.example.facebook.entity.Video;
@@ -15,8 +16,11 @@ public interface PhoneRepository extends JpaRepository<Phone, Long> {
 
     List<Phone> findAllByUserOrderByCreateDateDesc(User user);
 
-    Optional<Phone> findPostByIdAndUser(Long id, User user);
+    Optional<Phone> findPhoneById(Long id, Phone phone);
 
+    Optional<Phone> findPhoneByUsername(String username);
+
+    Optional<Phone> findPhoneByIdAndUser(Long id, User user);
 }
 
 
