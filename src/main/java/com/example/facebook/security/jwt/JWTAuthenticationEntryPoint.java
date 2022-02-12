@@ -1,8 +1,7 @@
 package com.example.facebook.security.jwt;
 import com.example.facebook.payload.response.InvalidLoginResponse;
 import com.example.facebook.security.SecurityConstants;
-import com.example.facebook.security.SecurityConstants;
-
+import com.google.gson.Gson;
 import org.springframework.http.HttpStatus;
 import org.springframework.security.core.AuthenticationException;
 import org.springframework.security.web.AuthenticationEntryPoint;
@@ -25,5 +24,4 @@ public class JWTAuthenticationEntryPoint implements AuthenticationEntryPoint {
         httpServletResponse.getWriter().println(jsonLoginResponse);
     }
 }
-
 

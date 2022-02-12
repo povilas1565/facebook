@@ -1,14 +1,13 @@
 package com.example.facebook.security.jwt;
 import com.example.facebook.entity.User;
 import com.example.facebook.security.SecurityConstants;
+import io.jsonwebtoken.*;
 
-import com.sun.org.apache.xml.internal.security.algorithms.SignatureAlgorithm;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Component;
 
-import java.security.SignatureException;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
@@ -68,6 +67,5 @@ public class JWTProvider {
         return Long.parseLong(userId);
     }
 }
-
 
 
