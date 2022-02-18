@@ -10,12 +10,14 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
+import org.springframework.stereotype.Service;
 
 import java.security.Principal;
 import java.util.List;
 
+@Service
 public class PhoneService {
-    public static final Logger LOG = LoggerFactory.getLogger(MessageService.class);
+    public static final Logger LOG = LoggerFactory.getLogger(PhoneService.class);
 
     private final PhoneRepository phoneRepository;
     private final UserRepository userRepository;

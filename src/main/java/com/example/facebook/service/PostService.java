@@ -9,7 +9,6 @@ import com.example.facebook.exceptions.PostNotFoundException;
 import com.example.facebook.repository.ImageRepository;
 import com.example.facebook.repository.PostRepository;
 import com.example.facebook.repository.UserRepository;
-import com.example.facebook.repository.VideoRepository;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;

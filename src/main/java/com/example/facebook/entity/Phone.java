@@ -22,7 +22,7 @@ public class Phone {
     @Column (nullable = false)
     private String username;
 
-    @Column (nullable = false)
+    @Column (name = "userid")
     private Long userId;
 
     @Column(nullable = true)

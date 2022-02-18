@@ -18,7 +18,7 @@ public class Message {
     @Column (nullable = false)
     private String username;
 
-    @Column (nullable = false)
+    @Column (name = "userid")
     private Long userId;
 
     @ManyToOne(fetch = FetchType.LAZY)
