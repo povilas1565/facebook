@@ -1,7 +1,6 @@
 package com.example.facebook.service;
 import com.example.facebook.dto.UserDTO;
 import com.example.facebook.entity.User;
-import com.example.facebook.entity.Post;
 import com.example.facebook.entity.enums.ERole;
 import com.example.facebook.exceptions.UserAlreadyExistException;
 import com.example.facebook.payload.request.SignupRequest;
@@ -17,7 +16,7 @@ import java.security.Principal;
 
 @Service
 public class UserService {
-    public static final Logger LOG = (Logger) LoggerFactory.getLogger(UserService.class);
+    public static final Logger LOG =  LoggerFactory.getLogger(UserService.class);
 
     private final UserRepository userRepository;
     private final BCryptPasswordEncoder bCryptPasswordEncoder;
@@ -26,27 +25,6 @@ public class UserService {
     public UserService(UserRepository userRepository, BCryptPasswordEncoder bCryptPasswordEncoder) {
         this.userRepository = userRepository;
         this.bCryptPasswordEncoder = bCryptPasswordEncoder;
-    }
-
-    private User getUserByPrincipal(Principal principal) {
-        String username = principal.getName();
-        return userRepository.findUserByUsername(username)
-                .orElseThrow(() -> new UsernameNotFoundException("User not found with username " + username));
-    }
-
-    public User getCurrentUser(Principal principal) {
-        return getUserByPrincipal(principal);
-    }
-
-    public User getUserById(Long userId) {
-        return userRepository.findUserById(userId).orElseThrow(()-> new UsernameNotFoundException("User not found"));
-    }
-    public User updateUser(UserDTO userDTO, Principal principal) {
-        User user = getUserByPrincipal(principal);
-        user.setFirstname(userDTO.getFirstname());
-        user.setLastname(userDTO.getLastname());
-        user.setInfo(userDTO.getInfo());
-        return userRepository.save(user);
     }
 
     public User createUser(SignupRequest userIn) {
@@ -68,4 +46,27 @@ public class UserService {
         }
     }
 
+    public User updateUser(UserDTO userDTO, Principal principal) {
+        User user = getUserByPrincipal(principal);
+        user.setFirstname(userDTO.getFirstname());
+        user.setLastname(userDTO.getLastname());
+        user.setInfo(userDTO.getInfo());
+        return userRepository.save(user);
+    }
+
+    public User getCurrentUser(Principal principal) {
+        return getUserByPrincipal(principal);
+    }
+
+    public User getUserById(Long userId) {
+        return userRepository.findUserById(userId).orElseThrow(()-> new UsernameNotFoundException("User not found"));
+    }
+
+    private User getUserByPrincipal(Principal principal) {
+        String username = principal.getName();
+        return userRepository.findUserByUsername(username)
+                .orElseThrow(() -> new UsernameNotFoundException("User not found with username " + username));
+    }
 }
+
+

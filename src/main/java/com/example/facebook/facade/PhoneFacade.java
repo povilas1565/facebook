@@ -14,7 +14,6 @@ public class PhoneFacade {
         phoneDTO.setTitle(phone.getTitle());
         phoneDTO.getLocation(phone.getLocation());
         phoneDTO.setUsername(phone.getUser().getUsername());
-        phone.getMessage(phone.getMessage());
 
         return phoneDTO;
     }

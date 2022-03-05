@@ -26,6 +26,25 @@ public class MessageService {
         this.messageRepository = messageRepository;
         this.userRepository = userRepository;
     }
+
+    public List<Message> getAllMessages() {
+        return messageRepository.findAllByOrderByCreateDate();
+    }
+
+    public Message getMessagesById(Long messageId, Principal principal) {
+        User user = getUserByPrincipal(principal);
+        return messageRepository.findMessageByIdAndUser(messageId, user)
+                .orElseThrow(() -> new MessageNotFoundException("Message not found for username:" + user.getEmail()));
+    }
+
+
+    public List<Message> getAllMessagesForUser(Principal principal) {
+        User user = getUserByPrincipal(principal);
+        return messageRepository.findAllByUserOrderByCreateDateDesc(user);
+    }
+
+
+
     public Message createMessage(MessageDTO MessageDTO, Principal principal) {
         User user = getUserByPrincipal(principal);
         Message message = new Message();
@@ -34,27 +53,12 @@ public class MessageService {
         LOG.info("Create new message for user: {}", user.getEmail());
         return messageRepository.save(message);
     }
-    public List<Message> getAllMessages() {
-        return messageRepository.findAllByOrderByCreateDate();
-    }
 
     private User getUserByPrincipal(Principal principal) {
             String username = principal.getName();
             return userRepository.findUserByUsername(username)
                     .orElseThrow(() -> new UsernameNotFoundException("User not found with username: " + username));
         }
-
-    public Message getMessageById(Long messageId, Principal principal) {
-        User user = getUserByPrincipal(principal);
-        return messageRepository.findMessageByIdAndUser(messageId, user)
-                .orElseThrow(() -> new MessageNotFoundException("Message not found for username:" + user.getEmail()));
-    }
-
-    public List<Message> getAllMessagesForUser(Principal principal) {
-        User user = getUserByPrincipal(principal);
-        return messageRepository.findAllByUserOrderByCreateDateDesc(user);
-    }
-
     }
 
 

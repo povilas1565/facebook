@@ -42,6 +42,55 @@ public class VideoService {
         this.userRepository = userRepository;
     }
 
+    public Video uploadVideoToProfile(MultipartFile file, Principal principal) throws IOException {
+        User user = getUserByPrincipal(principal);
+        Video userProfileVideo = videoRepository.findByUserId(user.getId()).orElse( null);
+
+        if (!ObjectUtils.isEmpty(userProfileVideo)) {
+            videoRepository.delete(userProfileVideo);
+        }
+        Video video = new Video();
+        video.setUserId(user.getId());
+        video.setVideoBytes(compressVideo(file.getBytes()));
+        LOG.info("Upload video to user {}", user.getId());
+
+        return videoRepository.save(video);
+    }
+
+    public Video uploadVideoToPost(MultipartFile file, Principal principal, Long postId) throws IOException {
+        User user = getUserByPrincipal(principal);
+        Post post = user.getPosts()
+                .stream()
+                .filter(p -> p.getId().equals(postId))
+                .collect(singlePostCollector());
+
+        Video video = new Video();
+        video.setPostId(post.getId());
+        video.setVideoBytes(compressVideo(file.getBytes()));
+        LOG.info("Upload video to post {}", post.getId());
+
+        return videoRepository.save(video);
+    }
+
+    public Video getPostVideo(Long postId) {
+        Video postVideo = videoRepository.findByPostId(postId)
+                .orElseThrow(() -> new VideoNotFoundException("Video cannot found for post" + postId));
+        if (!ObjectUtils.isEmpty(postVideo)) {
+            postVideo.setVideoBytes(decompressImage((postVideo.getVideoBytes())));
+        }
+        return postVideo;
+    }
+
+    public Video getUserProfileVideo(Principal principal) {
+        User user = getUserByPrincipal(principal);
+
+        Video userProfileVideo = videoRepository.findByUserId(user.getId()).orElse(null);
+        if (!ObjectUtils.isEmpty(userProfileVideo)) {
+            userProfileVideo.setVideoBytes(decompressImage(userProfileVideo.getVideoBytes()));
+        }
+        return userProfileVideo;
+    }
+
     public static byte[] compressVideo(byte[] data) {
         Deflater deflater = new Deflater();
         deflater.setInput(data);
@@ -94,59 +143,14 @@ public class VideoService {
         );
     }
 
-    public Video getUserProfileVideo(Principal principal) {
-        User user = getUserByPrincipal(principal);
-
-        Video userProfileVideo = videoRepository.findByUserId(user.getId()).orElse(null);
-        if (!ObjectUtils.isEmpty(userProfileVideo)) {
-            userProfileVideo.setVideoBytes(decompressImage(userProfileVideo.getVideoBytes()));
-        }
-        return userProfileVideo;
-    }
-
-    public Video getPostVideo(Long postId) {
-        Video postVideo = videoRepository.findByPostId(postId)
-                .orElseThrow(() -> new VideoNotFoundException("Video cannot found for post" + postId));
-        if (!ObjectUtils.isEmpty(postVideo)) {
-            postVideo.setVideoBytes(decompressImage((postVideo.getVideoBytes())));
-        }
-        return postVideo;
-    }
-
     private User getUserByPrincipal(Principal principal) {
         String username = principal.getName();
         return userRepository.findUserByUsername(username)
                 .orElseThrow(() -> new UsernameNotFoundException("User not found with username " + username));
     }
 
-    public Video uploadVideoToPost(MultipartFile file, Principal principal, Long postId) throws IOException {
-        User user = getUserByPrincipal(principal);
-        Post post = user.getPosts()
-                .stream()
-                .filter(p -> p.getId().equals(postId))
-                .collect(singlePostCollector());
 
-        Video video = new Video();
-        video.setPostId(post.getId());
-        video.setVideoBytes(compressVideo(file.getBytes()));
-        LOG.info("Upload image to post {}", post.getId());
 
-        return videoRepository.save(video);
-    }
 
-    public Video uploadVideoToProfile(MultipartFile file, Principal principal) throws IOException {
-        User user = getUserByPrincipal(principal);
-        Video userProfileVideo = videoRepository.findByUserId(user.getId()).orElse( null);
-
-        if (!ObjectUtils.isEmpty(userProfileVideo)) {
-            videoRepository.delete(userProfileVideo);
-        }
-        Video video = new Video();
-        video.setUserId(user.getId());
-        video.setVideoBytes(compressVideo(file.getBytes()));
-        LOG.info("Upload image to user {}", user.getId());
-
-        return videoRepository.save(video);
-    }
 }
 

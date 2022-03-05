@@ -41,14 +41,11 @@ public class Phone {
         this.createDate = LocalDateTime.now();
     }
 
-
-    public void getMessage(Object message) {
-
-    }
     public Object getMessage() {
         return null;
     }
 }
+
 
 
 

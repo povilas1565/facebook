@@ -1,5 +1,4 @@
 package com.example.facebook.exceptions;
-import com.example.facebook.entity.Image;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.ResponseStatus;
 

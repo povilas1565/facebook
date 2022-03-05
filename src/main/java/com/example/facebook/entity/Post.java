@@ -45,8 +45,11 @@ public class Post {
 
     @PrePersist
     protected void onCreate() {
-
         this.createDate = LocalDateTime.now();
+    }
+
+    public Post() {
+
     }
 }
 

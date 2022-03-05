@@ -28,7 +28,7 @@ public class SignupRequest {
     private String username;
 
     @NotEmpty(message = "Please enter your password")
-    @Size(min = 7)
+    @Size(min = 5, max = 50)
     private String password;
 
     @NotEmpty(message = "Please enter your password again")

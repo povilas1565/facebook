@@ -5,10 +5,12 @@ import com.example.facebook.dto.PostDTO;
 import com.example.facebook.entity.Image;
 import com.example.facebook.entity.Post;
 import com.example.facebook.entity.User;
+import com.example.facebook.entity.Video;
 import com.example.facebook.exceptions.PostNotFoundException;
 import com.example.facebook.repository.ImageRepository;
 import com.example.facebook.repository.PostRepository;
 import com.example.facebook.repository.UserRepository;
+import com.example.facebook.repository.VideoRepository;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -26,14 +28,32 @@ public class PostService {
     private final PostRepository postRepository;
     private final UserRepository userRepository;
     private final ImageRepository imageRepository;
+    private final VideoRepository videoRepository;
 
     @Autowired
 
-    public PostService(PostRepository postRepository, UserRepository userRepository, ImageRepository imageRepository) {
+    public PostService(PostRepository postRepository, UserRepository userRepository, ImageRepository imageRepository, VideoRepository videoRepository) {
         this.postRepository = postRepository;
         this.userRepository = userRepository;
         this.imageRepository = imageRepository;
+        this.videoRepository = videoRepository;
     }
+
+    public List<Post> getAllPosts() {
+        return postRepository.findAllByOrderByCreateDate();
+    }
+
+    public Post getPostById(Long postId, Principal principal) {
+        User user = getUserByPrincipal(principal);
+        return postRepository.findPostByIdAndUser(postId, user)
+                .orElseThrow(() -> new PostNotFoundException("Post not found for username:" + user.getEmail()));
+    }
+
+    public List<Post> getAllPostsForUser(Principal principal) {
+        User user = getUserByPrincipal(principal);
+        return postRepository.findAllByUserOrderByCreateDateDesc(user);
+    }
+
     public Post createPost(PostDTO postDTO, Principal principal) {
         User user = getUserByPrincipal(principal);
         Post post = new Post();
@@ -50,49 +70,36 @@ public class PostService {
     public void deletePost(Long postId, Principal principal) {
         Post post = getPostById(postId, principal);
         Optional<Image> image = imageRepository.findByPostId(post.getId());
+        Optional<Video> video = videoRepository.findByPostId(post.getId());
         postRepository.delete(post);
         image.ifPresent(imageRepository::delete);
+        video.ifPresent(videoRepository::delete);
+    }
 
+    public Post setLikeToPost(long postId, String username) {
+        Post post = postRepository.findById(postId)
+                .orElseThrow(() -> new PostNotFoundException("Post not found"));
+
+        Optional<String> userLikedPost = post.getLikedUsers()
+                .stream()
+                .filter(u -> u.equals(username)).findAny();
+
+        // если пользовать есть в списке "лайкнувших"
+        if (userLikedPost.isPresent()) {
+            // dislike
+            post.setLikes(post.getLikes() - 1);
+            post.getLikedUsers().remove(username);
+        } else {
+            post.setLikes(post.getLikes() + 1);
+            post.getLikedUsers().add(username);
+        }
+
+        return postRepository.save(post);
     }
 
     private User getUserByPrincipal(Principal principal) {
         String username = principal.getName();
         return userRepository.findUserByUsername(username)
                 .orElseThrow(() -> new UsernameNotFoundException("User not found with username: " + username));
-    }
-
-    public List<Post> getAllPosts() {
-        return postRepository.findAllByOrderByCreateDate();
-    }
-
-
-    public Post getPostById(Long postId, Principal principal) {
-        User user = getUserByPrincipal(principal);
-        return postRepository.findPostByIdAndUser(postId, user)
-                .orElseThrow(() -> new PostNotFoundException("Post not found for username:" + user.getEmail()));
-    }
-
-    public List<Post> getAllPostsForUser(Principal principal) {
-        User user = getUserByPrincipal(principal);
-        return postRepository.findAllByUserOrderByCreateDateDesc(user);
-    }
-
-    public Post setLikeToPost(Long postId, String username) {
-        Post post = postRepository.findById(postId)
-                .orElseThrow(() -> new PostNotFoundException("Post not found"));
-
-        Optional<String> userLikePost = post.getLikedUsers()
-                .stream()
-                .filter(u -> u.equals(username)).findAny();
-
-        if (userLikePost.isPresent()) {
-            post.setLikes(post.getLikes() - 1);
-            post.getLikedUsers().remove(username);
-
-        } else {
-            post.setLikes(post.getLikes() + 1);
-            post.getLikedUsers().add(username);
-        }
-        return postRepository.save(post);
     }
 }

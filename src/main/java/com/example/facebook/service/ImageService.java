@@ -40,6 +40,58 @@ public class ImageService {
         this.userRepository = userRepository;
     }
 
+    public Image uploadImageToProfile(MultipartFile file, Principal principal) throws IOException {
+        User user = getUserByPrincipal(principal);
+        Image userProfileImage = imageRepository.findByUserId(user.getId()).orElse( null);
+
+        if (!ObjectUtils.isEmpty(userProfileImage)) {
+            imageRepository.delete(userProfileImage);
+        }
+        Image image = new Image();
+        image.setUserId(user.getId());
+        image.setImageBytes(compressImage(file.getBytes()));
+        image.setName(file.getName());
+        LOG.info("Create image to user {}", user.getId());
+
+        return imageRepository.save(image);
+    }
+
+    public Image uploadImageToPost(MultipartFile file, Principal principal, Long postId) throws IOException {
+        User user = getUserByPrincipal(principal);
+        Post post = user.getPosts()
+                .stream()
+                .filter(p -> p.getId().equals(postId))
+                .collect(singlePostCollector());
+
+        Image image = new Image();
+        image.setPostId(post.getId());
+        image.setImageBytes(compressImage(file.getBytes()));
+        image.setName(file.getName());
+        LOG.info("Create image to post {}", post.getId());
+
+        return imageRepository.save(image);
+    }
+
+    public Image getPostImage(Long postId) {
+        Image postImage = imageRepository.findByPostId(postId)
+                .orElseThrow(() -> new ImageNotFoundException("Image cannot found for post" + postId));
+        if (!ObjectUtils.isEmpty(postImage)) {
+            postImage.setImageBytes(decompressImage((postImage.getImageBytes())));
+        }
+        return postImage;
+    }
+
+    public Image getUserProfileImage(Principal principal) {
+        User user = getUserByPrincipal(principal);
+
+        Image userProfileImage = imageRepository.findByUserId(user.getId()).orElse(null);
+        if (!ObjectUtils.isEmpty(userProfileImage)) {
+            userProfileImage.setImageBytes(decompressImage(userProfileImage.getImageBytes()));
+        }
+        return userProfileImage;
+    }
+
+
     public static byte[] compressImage(byte[] data) {
         Deflater deflater = new Deflater();
         deflater.setInput(data);
@@ -92,61 +144,13 @@ public class ImageService {
         );
     }
 
-    public Image getUserProfileImage(Principal principal) {
-        User user = getUserByPrincipal(principal);
-
-        Image userProfileImage = imageRepository.findByUserId(user.getId()).orElse(null);
-        if (!ObjectUtils.isEmpty(userProfileImage)) {
-            userProfileImage.setImageBytes(decompressImage(userProfileImage.getImageBytes()));
-        }
-        return userProfileImage;
-    }
-
-    public Image getPostImage(Long postId) {
-        Image postImage = imageRepository.findByPostId(postId)
-                .orElseThrow(() -> new ImageNotFoundException("Image cannot found for post" + postId));
-        if (!ObjectUtils.isEmpty(postImage)) {
-            postImage.setImageBytes(decompressImage((postImage.getImageBytes())));
-        }
-        return postImage;
-    }
-
     private User getUserByPrincipal(Principal principal) {
         String username = principal.getName();
         return userRepository.findUserByUsername(username)
                 .orElseThrow(() -> new UsernameNotFoundException("User not found with username " + username));
     }
 
-    public Image uploadImageToPost(MultipartFile file, Principal principal, Long postId) throws IOException {
-        User user = getUserByPrincipal(principal);
-        Post post = user.getPosts()
-                .stream()
-                .filter(p -> p.getId().equals(postId))
-                .collect(singlePostCollector());
 
-        Image image = new Image();
-        image.setPostId(post.getId());
-        image.setImageBytes(compressImage(file.getBytes()));
-        image.setName(file.getName());
-        LOG.info("Upload image to post {}", post.getId());
 
-        return imageRepository.save(image);
-    }
-
-    public Image uploadImageToProfile(MultipartFile file, Principal principal) throws IOException {
-        User user = getUserByPrincipal(principal);
-        Image userProfileImage = imageRepository.findByUserId(user.getId()).orElse( null);
-
-        if (!ObjectUtils.isEmpty(userProfileImage)) {
-            imageRepository.delete(userProfileImage);
-        }
-        Image image = new Image();
-        image.setUserId(user.getId());
-        image.setImageBytes(compressImage(file.getBytes()));
-        image.setName(file.getName());
-        LOG.info("Upload image to user {}", user.getId());
-
-        return imageRepository.save(image);
-    }
 }
 

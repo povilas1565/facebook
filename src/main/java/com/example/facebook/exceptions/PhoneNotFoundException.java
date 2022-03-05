@@ -6,6 +6,7 @@ import org.springframework.web.bind.annotation.ResponseStatus;
 @ResponseStatus(HttpStatus.BAD_REQUEST)
 public class PhoneNotFoundException extends RuntimeException {
     public PhoneNotFoundException(String message) {
+
         super(message);
     }
 }

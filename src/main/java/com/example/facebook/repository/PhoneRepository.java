@@ -16,9 +16,9 @@ public interface PhoneRepository extends JpaRepository<Phone, Long> {
 
     List<Phone> findAllByUserOrderByCreateDateDesc(User user);
 
-    Optional<Phone> findPhoneById(Long phoneId);
+    Optional<Phone> findAllPhoneById(Long phoneId);
 
-    Optional<Phone> findPhoneByUsername(String username);
+    Optional<Phone> findAllPhoneByUsername(String username);
 
     Optional<Phone> findPhoneByIdAndUser(Long id, User user);
 }

@@ -24,15 +24,15 @@ public class JWTProvider {
 
         String userId = Long.toString(user.getId());
 
-        Map<String, Object> clainsMap = new HashMap<>();
-        clainsMap.put("id", userId);
-        clainsMap.put("username", user.getEmail());
-        clainsMap.put("firstname", user.getFirstname());
-        clainsMap.put("lastname", user.getLastname());
+        Map<String, Object> claimsMap = new HashMap<>();
+        claimsMap.put("id", userId);
+        claimsMap.put("username", user.getEmail());
+        claimsMap.put("firstname", user.getFirstname());
+        claimsMap.put("lastname", user.getLastname());
 
         String token = Jwts.builder()
                 .setSubject(userId)
-                .addClaims(clainsMap)
+                .addClaims(claimsMap)
                 .setIssuedAt(now)
                 .setExpiration(expirationTime)
                 .signWith(SignatureAlgorithm.HS512, SecurityConstants.SECRET_KEY)

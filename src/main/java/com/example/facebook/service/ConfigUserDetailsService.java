@@ -22,24 +22,25 @@ public class ConfigUserDetailsService implements UserDetailsService {
         this.userRepository = userRepository;
     }
 
-
-    public static User initUser(User user) {
-        List<GrantedAuthority> authorities = user.getRoles().stream()
-                .map(ERole -> new SimpleGrantedAuthority(ERole.name()))
-                .collect(Collectors.toList());
-
-        return new User(user.getId(), user.getUsername(), user.getPassword(), user.getEmail(), authorities);
-    }
-
+    //1. Ищем пользователя в БД
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
         User user = userRepository.findUserByEmail(username).orElseThrow(() -> new UsernameNotFoundException("User not found:" + username));
         return initUser(user);
     }
 
-    public User loadUserByUserId(Long userId) {
+    //2. Конвертация в Spring Security
+    public static User initUser(User user) {
+        List<GrantedAuthority> authorities = user.getRoles().stream()
+                .map(ERole -> new SimpleGrantedAuthority(ERole.name()))
+                .collect(Collectors.toList());
+        //Наделяем нашего пользователя полномочиями
+        return new User(user.getId(), user.getUsername(), user.getPassword(), user.getEmail(), authorities);
+    }
 
-        return null;
+
+    public User loadUserByUserId(Long id) {
+        return userRepository.findUserById(id).orElse(null);
     }
 }
 
