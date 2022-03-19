@@ -24,9 +24,6 @@ public class Message {
     @ManyToOne(fetch = FetchType.LAZY)
     private User user;
 
-    @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY, mappedBy = "user", orphanRemoval = true)
-    private List<Phone> phones = new ArrayList<>();
-
     @Column (columnDefinition = "text", nullable=false)
     private String message;
 
