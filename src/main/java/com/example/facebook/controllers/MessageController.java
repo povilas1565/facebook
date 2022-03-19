@@ -2,17 +2,13 @@ package com.example.facebook.controllers;
 
 import com.example.facebook.dto.MessageDTO;
 import com.example.facebook.dto.PostDTO;
-import com.example.facebook.entity.*;
 import com.example.facebook.facade.MessageFacade;
-import com.example.facebook.facade.PhoneFacade;
 import com.example.facebook.payload.response.MessageResponse;
 import com.example.facebook.service.MessageService;
-import com.example.facebook.service.PhoneService;
 import com.example.facebook.validators.ResponseErrorValidator;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.util.ObjectUtils;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 

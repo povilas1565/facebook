@@ -14,7 +14,6 @@ import javax.validation.constraints.Size;
 public class SignupRequest {
     @Email(message = "It should be email format")
     @NotBlank(message = "User email is required" )
-
     @ValidEmail
     private String email;
 
