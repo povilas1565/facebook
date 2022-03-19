@@ -1,9 +1,9 @@
 package com.example.facebook.controllers;
 
 import com.example.facebook.dto.MessageDTO;
-import com.example.facebook.dto.PostDTO;
+import com.example.facebook.entity.Message;
 import com.example.facebook.facade.MessageFacade;
-import com.example.facebook.payload.response.MessageResponse;
+
 import com.example.facebook.service.MessageService;
 import com.example.facebook.validators.ResponseErrorValidator;
 import org.springframework.beans.factory.annotation.Autowired;
