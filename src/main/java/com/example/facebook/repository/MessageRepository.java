@@ -16,9 +16,9 @@ public interface MessageRepository extends JpaRepository<Message, Long> {
 
     List<Message> findAllByUserOrderByCreateDateDesc(User user);
 
-    Optional<Message> findAllByUserId(Long userId);
+    Optional<Message> findAllMessagesByUserId(Long userId);
 
-    Optional<Message> findAllMessageById(Long messageId);
+    Optional<Message> findAllMessagesById(Long messageId);
 
     Optional<Message> findMessageByIdAndUser(Long id, User user);
 }
