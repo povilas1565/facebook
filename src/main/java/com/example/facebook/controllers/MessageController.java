@@ -4,6 +4,7 @@ import com.example.facebook.dto.MessageDTO;
 import com.example.facebook.entity.Message;
 import com.example.facebook.facade.MessageFacade;
 
+import com.example.facebook.payload.response.MessageResponse;
 import com.example.facebook.service.MessageService;
 import com.example.facebook.validators.ResponseErrorValidator;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -38,6 +39,12 @@ public class MessageController {
         return new ResponseEntity<>(messageCreated, HttpStatus.OK);
     }
 
+    @PostMapping("/{messageId}/delete")
+    public ResponseEntity<MessageResponse> deletePost(@PathVariable("messageId") String messageId) {
+        messageService.deleteMessage(Long.parseLong(messageId));
+        return new ResponseEntity<>(new MessageResponse("The message" + messageId + "were deleted"), HttpStatus.OK);
+    }
+
     @GetMapping("/all")
     public ResponseEntity<List<MessageDTO>> getAllMessages() {
         List<MessageDTO> messageDTOList= messageService.getAllMessages()
@@ -57,6 +64,7 @@ public class MessageController {
         return new ResponseEntity<>(messageDTOList, HttpStatus.OK);
     }
 }
+
 
 
 
