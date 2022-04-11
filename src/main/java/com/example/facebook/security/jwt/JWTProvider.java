@@ -2,7 +2,6 @@ package com.example.facebook.security.jwt;
 import com.example.facebook.entity.User;
 import com.example.facebook.security.SecurityConstants;
 import io.jsonwebtoken.*;
-
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.security.core.Authentication;
@@ -12,9 +11,10 @@ import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
 
+
 @Component
 public class JWTProvider {
-    public static final Logger LOG = (Logger) LoggerFactory.getLogger(JWTProvider.class);
+    public static final Logger LOG =  LoggerFactory.getLogger(JWTProvider.class);
 
     public String generateToken(Authentication authentication) {
         User user = (User) authentication.getPrincipal();
@@ -26,7 +26,7 @@ public class JWTProvider {
 
         Map<String, Object> claimsMap = new HashMap<>();
         claimsMap.put("id", userId);
-        claimsMap.put("username", user.getEmail());
+        claimsMap.put("username", user.getUsername());
         claimsMap.put("firstname", user.getFirstname());
         claimsMap.put("lastname", user.getLastname());
 
