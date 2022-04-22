@@ -30,18 +30,17 @@ public class JWTProvider {
         claimsMap.put("firstname", user.getFirstname());
         claimsMap.put("lastname", user.getLastname());
 
-        String token = Jwts.builder()
+        return Jwts.builder()
                 .setSubject(userId)
                 .addClaims(claimsMap)
                 .setIssuedAt(now)
                 .setExpiration(expirationTime)
-                .signWith(SignatureAlgorithm.HS512, SecurityConstants.SECRET_KEY)
+                .signWith(SignatureAlgorithm.HS256, SecurityConstants.SECRET_KEY)
                 .compact();
-
-        return token;
     }
 
     public boolean validateToken(String token) {
+
         try {
             Jwts.parser()
                     .setSigningKey(SecurityConstants.SECRET_KEY)

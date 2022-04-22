@@ -19,7 +19,7 @@ import java.util.Collections;
 
 
 public class JWTAuthenticationFilter extends OncePerRequestFilter {
-    public static final Logger LOG = (Logger) LoggerFactory.getLogger(JWTProvider.class);
+    public static final Logger LOG =  LoggerFactory.getLogger(JWTProvider.class);
 
     @Autowired
     private JWTProvider jwtProvider;
