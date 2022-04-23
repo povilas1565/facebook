@@ -6,6 +6,7 @@ import com.example.facebook.facade.PostFacade;
 import com.example.facebook.payload.response.MessageResponse;
 import com.example.facebook.service.PostService;
 import com.example.facebook.validators.ResponseErrorValidator;
+import org.apache.commons.lang3.ObjectUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -34,6 +35,7 @@ public class PostController {
     @PostMapping("/create")
     public ResponseEntity<Object> createPost(@Valid @RequestBody PostDTO postDTO, BindingResult bindingResult, Principal principal) {
         ResponseEntity<Object> listErrors = responseErrorValidator.mappedValidatorService(bindingResult);
+        if (!ObjectUtils.isEmpty(listErrors)) return listErrors;
 
         Post post = postService.createPost(postDTO, principal);
         PostDTO postCreated = postFacade.postToPostDTO(post);

@@ -40,6 +40,7 @@ public class ConfigUserDetailsService implements UserDetailsService {
 
 
     public User loadUserByUserId(Long id) {
+
         return userRepository.findUserById(id).orElse(null);
     }
 }

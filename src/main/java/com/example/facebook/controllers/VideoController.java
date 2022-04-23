@@ -1,10 +1,7 @@
 package com.example.facebook.controllers;
-
 import com.example.facebook.entity.Video;
-import com.example.facebook.facade.VideoFacade;
 import com.example.facebook.payload.response.MessageResponse;
 import com.example.facebook.service.VideoService;
-import com.example.facebook.validators.ResponseErrorValidator;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -18,15 +15,9 @@ import java.security.Principal;
 @RequestMapping("/api/video")
 @CrossOrigin
 public class VideoController {
-    @Autowired
-    private VideoFacade videoFacade;
 
     @Autowired
     private VideoService videoService;
-
-    @Autowired
-    private ResponseErrorValidator responseErrorValidator;
-
 
     @PostMapping("/upload")
     public ResponseEntity<MessageResponse> uploadVideoToProfile(@RequestParam("file") MultipartFile file,
