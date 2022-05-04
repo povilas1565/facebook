@@ -12,7 +12,5 @@ public class VideoDTO {
 
     private String username;
 
-    public void getLocation(String location) {
-    }
 }
 

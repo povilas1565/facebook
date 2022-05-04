@@ -15,7 +15,7 @@ public class Video {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column(nullable = true)
+    @Column(nullable = false)
     private String location;
 
     @Column(updatable = false)
@@ -30,20 +30,9 @@ public class Video {
 
     @JsonIgnore
     private Long postId;
-
-    @ManyToOne(fetch = FetchType.EAGER)
-    private Post post;
-
-    @Column(nullable = false)
-    @JsonFormat(pattern = "yyyy-mm-dd нн:mm:ss")
-    private LocalDateTime createDate;
-
-    @PrePersist
-    protected void onCreate() {
-        this.createDate = LocalDateTime.now();
-    }
-
 }
+
+
 
 
 

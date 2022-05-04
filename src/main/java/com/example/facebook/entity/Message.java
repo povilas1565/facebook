@@ -14,11 +14,10 @@ public class Message {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-
     @Column (nullable = false)
     private String username;
 
-    @Column (name = "user_id")
+    @Column (name = "userid")
     private Long userId;
 
     @ManyToOne(fetch = FetchType.EAGER)
