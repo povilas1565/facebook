@@ -35,12 +35,15 @@ public class ConfigUserDetailsService implements UserDetailsService {
                 .map(ERole -> new SimpleGrantedAuthority(ERole.name()))
                 .collect(Collectors.toList());
         //Наделяем нашего пользователя полномочиями
-        return new User(user.getId(), user.getUsername(), user.getPassword(), user.getEmail(), authorities);
+        return new User(user.getId(),
+                user.getUsername(),
+                user.getPassword(),
+                user.getEmail(),
+                authorities);
     }
 
 
-    public User loadUserByUserId(Long id) {
-
+    public User loadUserById(Long id) {
         return userRepository.findUserById(id).orElse(null);
     }
 }

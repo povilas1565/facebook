@@ -6,9 +6,11 @@ import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
 
+
 import javax.persistence.*;
 import java.time.LocalDateTime;
 import java.util.*;
+
 @Data
 @Entity
 
@@ -24,8 +26,7 @@ public class User implements UserDetails {
         this. authorities = authorities;
     }
 
-
-    public User(Long id, String username, String password, String email, Collection<? extends GrantedAuthority> authorities) {
+   public User(Long id, String username, String password, String email, Collection<? extends GrantedAuthority> authorities) {
         this.id = id;
         this.username = username;
         this.password = password;
@@ -59,7 +60,7 @@ public class User implements UserDetails {
     @JsonFormat(pattern = "yyyy-mm-dd нн:mm:ss")
     private LocalDateTime createDate;
 
-    @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY, mappedBy = "user", orphanRemoval = true)
+    @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER, mappedBy = "user", orphanRemoval = true)
     private List<Post> posts = new ArrayList<>();
 
     @ElementCollection(targetClass = ERole.class)

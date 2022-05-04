@@ -1,15 +1,14 @@
 package com.example.facebook.entity;
-import com.example.facebook.entity.Comment;
-import com.example.facebook.entity.User;
+
 import com.fasterxml.jackson.annotation.JsonFormat;
 import lombok.Data;
-
 import javax.persistence.*;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
+
 
 @Data
 @Entity
@@ -29,7 +28,7 @@ public class Post {
 
     @Column(nullable = true)
     private Integer likes;
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne(fetch = FetchType.EAGER)
     private User user;
 
     @Column
