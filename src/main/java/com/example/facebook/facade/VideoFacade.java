@@ -9,8 +9,6 @@ public class VideoFacade {
     public VideoDTO videoToVideoDTO(Video video) {
         VideoDTO videoDTO = new VideoDTO();
         videoDTO.setId(video.getId());
-        videoDTO.setTitle(video.getTitle());
-        videoDTO.setUsername(video.getUsername());
         videoDTO.setLocation(video.getLocation());
 
         return videoDTO;
