@@ -28,7 +28,7 @@ public class Post {
 
     @Column(nullable = true)
     private Integer likes;
-    @ManyToOne(fetch = FetchType.EAGER)
+    @ManyToOne(fetch = FetchType.LAZY)
     private User user;
 
     @Column

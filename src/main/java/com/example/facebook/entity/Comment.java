@@ -22,7 +22,7 @@ public class Comment {
     @Column (nullable = false)
     private Long userId;
 
-    @Column (columnDefinition = "text", nullable=false)
+    @Column (columnDefinition = "text", nullable = false)
     private String message;
 
     @Column (nullable = false)

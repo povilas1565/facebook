@@ -12,13 +12,14 @@ import java.time.LocalDateTime;
 @Entity
 public class Video {
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
     @Column(nullable = true)
     private String location;
 
     @Column(updatable = false)
-    private String username;
+    private String name;
 
     @Lob
     @Column(columnDefinition = "LONGBLOB")
@@ -31,7 +32,7 @@ public class Video {
     private Long postId;
 
     @ManyToOne(fetch = FetchType.EAGER)
-    private Post posts;
+    private Post post;
 
     @Column(nullable = false)
     @JsonFormat(pattern = "yyyy-mm-dd нн:mm:ss")
@@ -42,17 +43,6 @@ public class Video {
         this.createDate = LocalDateTime.now();
     }
 
-    public String getTitle() {
-        return null;
-    }
-
-    public String getUsername() {
-        return username;
-    }
-
-    public void setUsername(String username) {
-        this.username = username;
-    }
 }
 
 

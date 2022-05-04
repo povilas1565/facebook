@@ -8,10 +8,8 @@ import javax.persistence.*;
 @Entity
 public class Image {
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-
-    @ManyToOne(fetch = FetchType.EAGER)
-    private Post posts;
 
     @Column(updatable = false)
     private String name;

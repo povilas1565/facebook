@@ -18,7 +18,7 @@ public class Message {
     @Column (nullable = false)
     private String username;
 
-    @Column (name = "userid")
+    @Column (name = "user_id")
     private Long userId;
 
     @ManyToOne(fetch = FetchType.EAGER)
