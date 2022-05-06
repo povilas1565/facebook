@@ -39,6 +39,10 @@ public class PostService {
         this.videoRepository = videoRepository;
     }
 
+    private ImageRepository ImageRepository(ImageRepository imageRepository) {
+        return imageRepository;
+    }
+
     public List<Post> getAllPosts() {
         return postRepository.findAllByOrderByCreateDate();
     }
@@ -97,9 +101,14 @@ public class PostService {
         return postRepository.save(post);
     }
 
-    private User getUserByPrincipal(Principal principal) {
-        String username = principal.getName();
-        return userRepository.findUserByUsername(username)
-                .orElseThrow(() -> new UsernameNotFoundException("User not found with username: " + username));
+        private User getUserByPrincipal(Principal principal) {
+            String username = principal.getName();
+            return userRepository.findUserByUsername(username)
+                    .orElseThrow(() -> new UsernameNotFoundException("User not found with username: " + username));
+        }
     }
-}
+
+
+
+
+

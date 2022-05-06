@@ -2,32 +2,19 @@ package com.example.facebook.entity;
 import com.example.facebook.entity.enums.ERole;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import lombok.Data;
-import lombok.Getter;
-import lombok.Setter;
+import org.jboss.logging.Messages;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
-
-
-
 import javax.persistence.*;
-import javax.validation.constraints.NotNull;
 import java.time.LocalDateTime;
 import java.util.*;
 
 @Data
 @Entity
-
 public class User implements UserDetails {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-    public User(Long id, String email, Collection<? extends GrantedAuthority> authorities) {
-        this. id = id;
-        this. username = username;
-        this. password = password;
-        this. email = email;
-        this. authorities = authorities;
-    }
 
    public User(Long id, String username, String password, String email, Collection<? extends GrantedAuthority> authorities) {
         this.id = id;
@@ -35,10 +22,6 @@ public class User implements UserDetails {
         this.password = password;
         this.email = email;
         this.authorities = authorities;
-    }
-
-    public User() {
-
     }
 
     @Column (nullable = false)
@@ -63,10 +46,10 @@ public class User implements UserDetails {
     @JsonFormat(pattern = "yyyy-mm-dd нн:mm:ss")
     private LocalDateTime createDate;
 
-    @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY, mappedBy = "user", orphanRemoval = true)
+    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.EAGER)
     private List<Post> posts = new ArrayList<>();
 
-    @ElementCollection(targetClass = ERole.class)
+    @ElementCollection(targetClass = ERole.class, fetch = FetchType.EAGER)
     @CollectionTable(name = "user_role",
             joinColumns = @JoinColumn(name = "user_id"))
     private Set<ERole> roles = new LinkedHashSet<>();
@@ -78,6 +61,10 @@ public class User implements UserDetails {
     protected void onCreate() {
         this.createDate = LocalDateTime.now();
     }
+
+    public User() {
+    }
+
     @Override
     public String getPassword() { return password;}
 

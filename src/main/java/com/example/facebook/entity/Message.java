@@ -14,25 +14,25 @@ public class Message {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column (nullable = false)
-    private String username;
-
-    @Column (name = "userid")
-    private Long userId;
-
     @ManyToOne(fetch = FetchType.EAGER)
     private User user;
 
-    @Column (columnDefinition = "text", nullable=false)
+    @Column(nullable = false)
+    private String username;
+
+    @Column(columnDefinition = "text", nullable = false)
     private String message;
 
-    @Column (nullable = false)
+    @Column(updatable = false)
     @JsonFormat(pattern = "yyyy-mm-dd нн:mm:ss")
     private LocalDateTime createDate;
 
     @PrePersist
     protected void onCreate() {
         this.createDate = LocalDateTime.now();
+    }
+
+    public Message() {
     }
 }
 

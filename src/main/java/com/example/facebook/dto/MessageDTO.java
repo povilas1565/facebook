@@ -8,6 +8,7 @@ import javax.validation.constraints.NotEmpty;
 public class MessageDTO {
     private Long id;
 
+    @NotEmpty
     private String username;
 
     @NotEmpty

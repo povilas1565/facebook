@@ -23,22 +23,22 @@ public class Post {
     @Column(nullable = false)
     private String caption;
 
-    @Column(nullable = true)
+    @Column(nullable = false)
     private String location;
 
-    @Column(nullable = true)
+    @Column(nullable = false)
     private Integer likes;
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne(fetch = FetchType.EAGER)
     private User user;
 
     @Column
-    @ElementCollection(targetClass = String.class)
+    @ElementCollection(targetClass = String.class, fetch = FetchType.EAGER)
     private Set<String> likedUsers = new HashSet<>();
 
-    @OneToMany(cascade = CascadeType.REFRESH, fetch = FetchType.EAGER, mappedBy = "post", orphanRemoval = true)
+    @OneToMany(mappedBy = "post", cascade = CascadeType.REFRESH,orphanRemoval = true, fetch = FetchType.EAGER)
     private List<Comment> comments = new ArrayList<>();
 
-    @Column (updatable = false)
+    @Column(updatable = false)
     @JsonFormat(pattern = "yyyy-mm-dd нн:mm:ss")
     private LocalDateTime createDate;
 

@@ -15,9 +15,6 @@ public class Video {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column(nullable = false)
-    private String location;
-
     @Column(updatable = false)
     private String name;
 
@@ -30,6 +27,7 @@ public class Video {
 
     @JsonIgnore
     private Long postId;
+
 }
 
 
