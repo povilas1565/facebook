@@ -15,7 +15,7 @@ public class Video {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column(updatable = false)
+    @Column(nullable = false)
     private String name;
 
     @Lob

@@ -11,11 +11,11 @@ public class Image {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column(updatable = false)
+    @Column(nullable = false)
     private String name;
 
     @Lob
-    @Column (columnDefinition = "LONGBLOB")
+    @Column(columnDefinition = "LONGBLOB")
     private byte[] imageBytes;
 
     @JsonIgnore

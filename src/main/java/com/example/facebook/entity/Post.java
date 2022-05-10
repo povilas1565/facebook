@@ -23,10 +23,10 @@ public class Post {
     @Column(nullable = false)
     private String caption;
 
-    @Column(nullable = false)
+    @Column(nullable = true)
     private String location;
 
-    @Column(nullable = false)
+    @Column(nullable = true)
     private Integer likes;
     @ManyToOne(fetch = FetchType.EAGER)
     private User user;
@@ -35,7 +35,7 @@ public class Post {
     @ElementCollection(targetClass = String.class, fetch = FetchType.EAGER)
     private Set<String> likedUsers = new HashSet<>();
 
-    @OneToMany(mappedBy = "post", cascade = CascadeType.REFRESH,orphanRemoval = true, fetch = FetchType.EAGER)
+    @OneToMany(cascade = CascadeType.REFRESH, fetch = FetchType.EAGER, mappedBy = "post", orphanRemoval = true)
     private List<Comment> comments = new ArrayList<>();
 
     @Column(updatable = false)

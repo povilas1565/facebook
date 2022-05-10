@@ -25,7 +25,7 @@ public class Comment {
     @Column (columnDefinition = "text", nullable = false)
     private String message;
 
-    @Column (nullable = false)
+    @Column(updatable = false)
     @JsonFormat(pattern = "yyyy-mm-dd нн:mm:ss")
     private LocalDateTime createDate;
 

@@ -46,7 +46,7 @@ public class User implements UserDetails {
     @JsonFormat(pattern = "yyyy-mm-dd нн:mm:ss")
     private LocalDateTime createDate;
 
-    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.EAGER)
+    @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER, mappedBy = "user", orphanRemoval = true)
     private List<Post> posts = new ArrayList<>();
 
     @ElementCollection(targetClass = ERole.class, fetch = FetchType.EAGER)
