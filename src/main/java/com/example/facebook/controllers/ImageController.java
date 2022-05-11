@@ -18,7 +18,6 @@ import java.security.Principal;
 public class ImageController {
     @Autowired
     ImageService imageService;
-    private String postId;
 
     @PostMapping("/upload")
     public ResponseEntity<MessageResponse> uploadImageToProfile(@RequestParam("file") MultipartFile file,
@@ -41,7 +40,6 @@ public class ImageController {
     }
     @GetMapping("/{postId}/image")
     public ResponseEntity<Image> getPostImage(@PathVariable String postId){
-        this.postId = postId;
         Image postImage = imageService.getPostImage(Long.parseLong(postId));
         return new ResponseEntity<>(postImage, HttpStatus.OK);
     }
