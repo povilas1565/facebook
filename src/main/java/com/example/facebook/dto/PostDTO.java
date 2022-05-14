@@ -16,17 +16,9 @@ public class PostDTO {
 
     private String username;
 
-    private String likes;
+    private Integer likes;
 
     private Set<String> likedUsers;
 
-    public void setLikes(Integer likes) {
-    }
-
-    public void getLikedUsers(Set<String> likedUsers) {
-    }
-
-    public void getLocation(String location) {
-    }
 }
 

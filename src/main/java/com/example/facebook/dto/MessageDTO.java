@@ -6,7 +6,12 @@ import javax.validation.constraints.NotEmpty;
 
 @Data
 public class MessageDTO {
+
     private Long id;
+
+    private String title;
+
+    private String caption;
 
     @NotEmpty
     private String username;

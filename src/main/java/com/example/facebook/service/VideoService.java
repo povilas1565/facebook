@@ -129,6 +129,7 @@ public class VideoService {
         Video video = new Video();
         video.setPostId(post.getId());
         video.setVideoBytes(compressVideo(file.getBytes()));
+        video.setName(file.getName());
         LOG.info("Upload video to post {}", post.getId());
 
         return videoRepository.save(video);

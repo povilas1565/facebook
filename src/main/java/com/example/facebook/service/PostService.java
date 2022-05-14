@@ -39,10 +39,6 @@ public class PostService {
         this.videoRepository = videoRepository;
     }
 
-    private ImageRepository ImageRepository(ImageRepository imageRepository) {
-        return imageRepository;
-    }
-
     public List<Post> getAllPosts() {
         return postRepository.findAllByOrderByCreateDate();
     }

@@ -39,15 +39,13 @@ public class MessageService {
                 .orElseThrow(() -> new MessageNotFoundException("Message not found for username:" + user.getEmail()));
     }
 
-
     public List<Message> getAllMessagesForUser(Principal principal) {
         User user = getUserByPrincipal(principal);
         return messageRepository.findAllByUserOrderByCreateDateDesc(user);
     }
 
 
-
-    public Message createMessage(MessageDTO MessageDTO, Principal principal) {
+    public Message createMessage(MessageDTO messageDTO, Principal principal) {
         User user = getUserByPrincipal(principal);
         Message message = new Message();
         message.setUser(user);
