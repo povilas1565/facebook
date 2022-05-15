@@ -1,9 +1,6 @@
 package com.example.facebook.service;
-
 import com.example.facebook.dto.MessageDTO;
-import com.example.facebook.entity.Comment;
-import com.example.facebook.entity.Message;
-import com.example.facebook.entity.User;
+import com.example.facebook.entity.*;
 import com.example.facebook.exceptions.MessageNotFoundException;
 import com.example.facebook.repository.MessageRepository;
 import com.example.facebook.repository.UserRepository;
@@ -16,6 +13,7 @@ import java.security.Principal;
 import java.util.List;
 import java.util.Optional;
 
+
 @Service
 public class MessageService {
     public static final Logger LOG = LoggerFactory.getLogger(MessageService.class);
@@ -27,6 +25,7 @@ public class MessageService {
     public MessageService(MessageRepository messageRepository, UserRepository userRepository) {
         this.messageRepository = messageRepository;
         this.userRepository = userRepository;
+
     }
 
     public List<Message> getAllMessages() {
@@ -49,15 +48,18 @@ public class MessageService {
         User user = getUserByPrincipal(principal);
         Message message = new Message();
         message.setUser(user);
+        message.setTitle(messageDTO.getTitle());
+        message.setCaption(messageDTO.getCaption());
 
         LOG.info("Create new message for user: {}", user.getEmail());
         return messageRepository.save(message);
     }
 
-    public void deleteMessage(Long messageId) {
-        Optional<Message> message = messageRepository.findById(messageId);
-        message.ifPresent(messageRepository::delete);
-    }
+    public void deleteMessage(Long messageId, Principal principal) {
+            Optional<Message> message = messageRepository.findById(messageId);
+            message.ifPresent(messageRepository::delete);
+        }
+
 
     private User getUserByPrincipal(Principal principal) {
             String username = principal.getName();

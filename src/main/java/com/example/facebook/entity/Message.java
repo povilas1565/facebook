@@ -17,8 +17,13 @@ public class Message {
     @ManyToOne(fetch = FetchType.EAGER)
     private User user;
 
-    @Column(nullable = false)
     private String username;
+
+
+    private String title;
+
+    private String caption;
+
 
     @Column(columnDefinition = "text", nullable = false)
     private String message;

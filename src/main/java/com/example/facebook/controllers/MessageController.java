@@ -1,6 +1,7 @@
 package com.example.facebook.controllers;
 
 import com.example.facebook.dto.MessageDTO;
+import com.example.facebook.dto.PostDTO;
 import com.example.facebook.entity.Message;
 import com.example.facebook.facade.MessageFacade;
 
@@ -41,15 +42,9 @@ public class MessageController {
         return new ResponseEntity<>(messageCreated, HttpStatus.OK);
     }
 
-    @PostMapping("/{messageId}/delete")
-    public ResponseEntity<MessageResponse> deletePost(@PathVariable("messageId") String messageId) {
-        messageService.deleteMessage(Long.parseLong(messageId));
-        return new ResponseEntity<>(new MessageResponse("The message" + messageId + "were deleted"), HttpStatus.OK);
-    }
-
     @GetMapping("/all")
     public ResponseEntity<List<MessageDTO>> getAllMessages() {
-        List<MessageDTO> messageDTOList= messageService.getAllMessages()
+        List<MessageDTO> messageDTOList = messageService.getAllMessages()
                 .stream()
                 .map(messageFacade::messageToMessageDTO)
                 .collect(Collectors.toList());
@@ -65,7 +60,18 @@ public class MessageController {
                 .collect(Collectors.toList());
         return new ResponseEntity<>(messageDTOList, HttpStatus.OK);
     }
+
+    @PostMapping("/{messageId}/delete")
+    public ResponseEntity<MessageResponse> deleteMessage(@PathVariable("messageId") String messageId, Principal principal) {
+        messageService.deleteMessage(Long.parseLong(messageId), principal);
+        return new ResponseEntity<>(new MessageResponse("The message" + messageId + "were deleted"), HttpStatus.OK);
+    }
 }
+
+
+
+
+
 
 
 

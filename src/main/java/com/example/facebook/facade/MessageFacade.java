@@ -10,7 +10,8 @@ public class MessageFacade {
         MessageDTO messageDTO = new MessageDTO();
         messageDTO.setId(message.getId());
         messageDTO.setUsername(message.getUser().getUsername());
-
+        messageDTO.setCaption(message.getCaption());
+        messageDTO.setTitle(message.getTitle());
 
         return messageDTO;
     }

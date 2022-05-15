@@ -13,6 +13,7 @@ public class MessageDTO {
 
     private String caption;
 
+
     @NotEmpty
     private String username;
 

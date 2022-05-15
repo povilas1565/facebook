@@ -27,13 +27,11 @@ import java.util.zip.Inflater;
 @Service
 public class ImageService {
     public static final Logger LOG = LoggerFactory.getLogger(ImageService.class);
-
     private final ImageRepository imageRepository;
     private final PostRepository postRepository;
     private final UserRepository userRepository;
 
     @Autowired
-
     public ImageService(ImageRepository imageRepository, PostRepository postRepository, UserRepository userRepository) {
         this.imageRepository = imageRepository;
         this.postRepository = postRepository;
