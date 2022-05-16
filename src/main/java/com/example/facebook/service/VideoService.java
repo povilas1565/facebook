@@ -57,7 +57,7 @@ public class VideoService {
         } catch (IOException e) {
             LOG.error("Cannot compress video");
         }
-        System.out.println("Compressed image video = " + byteArrayOutputStream.toByteArray().length);
+        System.out.println("Compressed video = " + byteArrayOutputStream.toByteArray().length);
         return byteArrayOutputStream.toByteArray();
     }
 
