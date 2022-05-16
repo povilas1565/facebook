@@ -1,10 +1,14 @@
 package com.example.facebook.entity;
-import lombok.Data;
-import net.minidev.json.annotate.JsonIgnore;
 
+import lombok.*;
+import net.minidev.json.annotate.JsonIgnore;
 import javax.persistence.*;
 
-@Data
+
+@Getter
+@Setter
+@ToString
+@RequiredArgsConstructor
 @Entity
 public class Image {
     @Id
@@ -23,7 +27,6 @@ public class Image {
 
     @JsonIgnore
     private Long postId;
-
 }
 
 

@@ -2,7 +2,6 @@ package com.example.facebook.entity;
 import com.example.facebook.entity.enums.ERole;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import lombok.Data;
-import org.jboss.logging.Messages;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 import javax.persistence.*;

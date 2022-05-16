@@ -1,12 +1,7 @@
 package com.example.facebook.entity;
-import com.fasterxml.jackson.annotation.JsonFormat;
 import lombok.Data;
 import net.minidev.json.annotate.JsonIgnore;
-
-
 import javax.persistence.*;
-import javax.sql.RowSet;
-import java.time.LocalDateTime;
 
 @Data
 @Entity

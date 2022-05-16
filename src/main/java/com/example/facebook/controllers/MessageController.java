@@ -1,7 +1,6 @@
 package com.example.facebook.controllers;
 
 import com.example.facebook.dto.MessageDTO;
-import com.example.facebook.dto.PostDTO;
 import com.example.facebook.entity.Message;
 import com.example.facebook.facade.MessageFacade;
 

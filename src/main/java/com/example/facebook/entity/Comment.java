@@ -1,9 +1,10 @@
 package com.example.facebook.entity;
-import com.fasterxml.jackson.annotation.JsonFormat;
-import lombok.Data;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
+import lombok.*;
 import javax.persistence.*;
 import java.time.LocalDateTime;
+
 
 @Data
 @Entity
@@ -16,13 +17,13 @@ public class Comment {
     @ManyToOne(fetch = FetchType.EAGER)
     private Post post;
 
-    @Column (nullable = false)
+    @Column(nullable = false)
     private String username;
 
-    @Column (nullable = false)
+    @Column(nullable = false)
     private Long userId;
 
-    @Column (columnDefinition = "text", nullable = false)
+    @Column(columnDefinition = "text", nullable = false)
     private String message;
 
     @Column(updatable = false)
@@ -34,4 +35,3 @@ public class Comment {
         this.createDate = LocalDateTime.now();
     }
 }
-
