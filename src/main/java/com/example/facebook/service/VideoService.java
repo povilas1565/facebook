@@ -93,7 +93,6 @@ public class VideoService {
         );
     }
 
-
     public Video uploadVideoToProfile(MultipartFile file, Principal principal) throws IOException {
         User user = getUserByPrincipal(principal);
         Video userProfileVideo = videoRepository.findByUserId(user.getId()).orElse( null);
