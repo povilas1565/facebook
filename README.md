@@ -16,7 +16,7 @@ spring.servlet.multipart.enabled=true
 spring.datasource.url=jdbc:mysql://localhost:3306/facebook1
 spring.datasource.username=root
 spring.datasource.password=povilas1565
-6) Данные переменные окружения установлены мною по умолчанию.Вы можете использовать данные переменные окружения, либо создайте новые путем создания схемы (Сreate New Schema) в MySQl Workbench, где пароль и логин БД - данные, которые вы укажите при установке MySQl Community.
-7) Запустите приложения в программе Intelij Idea Ultimate.
+6) Данные переменные окружения установлены мною по умолчанию, либо создайте свои путём создания новой схемы в MySQL Workbench c логином и паролем, полученными при установке MySQl Community.
+7) Запустите програму в Intelij Idea Ultimate.
 8) Наслаждайтесь!
 
