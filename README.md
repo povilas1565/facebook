@@ -1,4 +1,4 @@
-# HOMEBOOK.RU
+# RESTFUL API для социального медиа-приложения HOMEBOOK.RU
 Бекэнд(серверная часть приложения HOMEBOOK.RU), созданный на стеке: Java 1.8 + Spring Boot + Maven + MySQl80.
 Для запуска данного кода, нужно:
 1) Установить программу Intelij Idea Ultimate от компании JetBrains(чтобы скачать эту программу перейдите по следующей ссылке: https://www.jetbrains.com/idea) (я создавал этот код в Intelij Idea Ultimate 2021.3.1).
