@@ -18,6 +18,6 @@ spring.datasource.username=root
 spring.datasource.password=povilas1565
 6) Данные переменные окружения установлены мною по умолчанию, либо создайте свои путём создания новой схемы в MySQL Workbench c логином и паролем, полученными при установке MySQl Community.
 7) Запустите програму в Intelij Idea Ultimate.
-8) Документация Swagger появится на экране в браузере сразу после запуска программу по адресу: https://localhost:8080/swagger-ui.html
+8) Документация Swagger появится на экране в браузере сразу после запуска программу по адресу: http://localhost:8080/swagger-ui.html
 9) Наслаждайтесь!
 
